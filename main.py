@@ -4,6 +4,9 @@ import json
 import os
 
 from generator_key import generate_symmetric_k, generate_asymmetric_k, write_symmetric_k
+from encryption_file import encryption_assymetric
+
+
 def read_settings(file: str) -> dict:
     """ Считывает настройки из файла.
         :param file: Путь к файлу.
@@ -33,5 +36,10 @@ if __name__ == '__main__':
         symmetric_key = generate_symmetric_k()
         logging.info('Генерация симметричного ключа завершена')
         public_key = generate_asymmetric_k(settings['secret_key'], settings['public_key'])
+        c_symmetric_key = encryption_assymetric(public_key, symmetric_key)
         logging.info('Симметричный ключ зашифрован')
-        write_symmetric_k(settings['symmetric_key'], symmetric_key)
+        write_symmetric_k(settings['symmetric_key'], c_symmetric_key)
+    elif args.encryption:
+        pass
+    else:
+       pass
