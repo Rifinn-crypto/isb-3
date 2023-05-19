@@ -5,6 +5,7 @@ import os
 
 from generator_key import generate_symmetric_k, generate_asymmetric_k, write_symmetric_k
 from encryption_file import encryption_assymetric, encryption_symmetric
+from decryption_file import decryption_symmetric, decryption_assymetric
 
 
 def read_settings(file: str) -> dict:
@@ -40,6 +41,10 @@ if __name__ == '__main__':
         logging.info('Симметричный ключ зашифрован')
         write_symmetric_k(settings['symmetric_key'], c_symmetric_key)
     elif args.encryption:
-        pass
+        symmetric_key = decryption_assymetric(settings['secret_key'], settings['symmetric_key'])
+        logging.info('Симметричный ключ расшифрован')
+        encryption_symmetric(settings['initial_file'], symmetric_key, settings['encrypted_file'])
     else:
-       pass
+        symmetric_key = decryption_assymetric(settings['secret_key'], settings['symmetric_key'])
+        logging.info('Симметричный ключ расшифрован!')
+        decryption_symmetric(settings['encrypted_file'], symmetric_key, settings['decrypted_file'])
