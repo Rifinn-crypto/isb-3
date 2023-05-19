@@ -4,7 +4,7 @@ import json
 import os
 
 from generator_key import generate_symmetric_k, generate_asymmetric_k, write_symmetric_k
-from encryption_file import encryption_assymetric
+from encryption_file import encryption_assymetric, encryption_symmetric
 
 
 def read_settings(file: str) -> dict:
