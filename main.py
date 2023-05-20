@@ -23,8 +23,8 @@ def read_settings(file: str) -> dict:
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-set', '--settings', type=str, help='Использовать собственный файл с настройками (Введите '
-                                                             'путь к файлу)', default=read_settings(os.path.join("data",
-                                                                                                    "settings.json")))
+                                                             'путь к файлу)', default=os.path.join("data",
+                                                                                                   "settings.json"))
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument('-gen', '--generation', help='Запускает режим генерации ключей', action='count')
     group.add_argument('-enc', '--encryption', help='Запускает режим шифрования', action='count')
@@ -32,8 +32,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
     if args.settings:
         settings = read_settings(args.settings)
-    else:
-        settings = read_settings(os.path.join("data", "settings.json"))
     if args.generation:
         symmetric_key = generate_symmetric_k()
         logging.info('Генерация симметричного ключа завершена')
