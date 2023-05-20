@@ -23,11 +23,12 @@ def read_settings(file: str) -> dict:
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-set', '--settings', type=str, help='Использовать собственный файл с настройками (Введите '
-                                                             'путь к файлу)')
+                                                             'путь к файлу)', default=read_settings(os.path.join("data",
+                                                                                                    "settings.json")))
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument('-gen', '--generation', help='Запускает режим генерации ключей')
-    group.add_argument('-enc', '--encryption', help='Запускает режим шифрования')
-    group.add_argument('-dec', '--decryption', help='Запускает режим дешифрования')
+    group.add_argument('-gen', '--generation', help='Запускает режим генерации ключей', action='count')
+    group.add_argument('-enc', '--encryption', help='Запускает режим шифрования', action='count')
+    group.add_argument('-dec', '--decryption', help='Запускает режим дешифрования', action='count')
     args = parser.parse_args()
     if args.settings:
         settings = read_settings(args.settings)
